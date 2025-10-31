@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Filmes</title>
+    <style>
+        /* =============================
+           ESTILO GERAL - TEMA PRIME VIDEO
+        ============================== */
+        body {
+            font-family: "Amazon Ember", Arial, sans-serif;
+            background-color: #0f171e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a242f;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 26px;
+            color: #00a8e1;
+            margin: 0;
+        }
+
+        main {
+            padding: 30px 40px;
+        }
+
+        h2.section-title {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+            border-left: 4px solid #00a8e1;
+            padding-left: 10px;
+            text-align: left;
+        }
+
+        /* =============================
+           CONTAINER DE FILMES
+        ============================== */
+        #lista-filmes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .filme {
+            background-color: #1a242f;
+            border-radius: 8px;
+            width: 220px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .filme:hover {
+            transform: scale(1.07);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .poster {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            border: none;
+            display: block;
+        }
+
+        .filme-info {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .filme-info h3 {
+            font-size: 16px;
+            color: #fff;
+            margin: 0 0 5px;
+        }
+
+        .filme-info p {
+            font-size: 13px;
+            color: #aaa;
+            margin: 2px 0;
+        }
+
+        /* =============================
+           SCROLLBAR (estilo Prime Video)
+        ============================== */
+        ::-webkit-scrollbar {
+            height: 8px;
+            background: #0f171e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00a8e1;
+            border-radius: 10px;
+        }
+
+        /* =============================
+           RESPONSIVIDADE
+        ============================== */
+        @media (max-width: 768px) {
+            #lista-filmes {
+                justify-content: center;
+            }
+            .filme {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filme {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>prime video</h1>
+    </header>
+
+    <main>
+        <h2 class="section-title">Catálogo de Filmes</h2>
+
+        <div id="lista-filmes">
+            {% for id, filme in filmes.items() %}
+            <div class="filme">
+                {% if filme.poster %}
+                    <img src="{{ filme.poster }}" alt="Pôster de {{ filme.titulo }}" class="poster">
+                {% else %}
+                    <div style="width:100%;height:330px;background:#2a343f;
+                                display:flex;align-items:center;justify-content:center;
+                                color:#777;font-size:14px;">
+                        Sem pôster
+                    </div>
+                {% endif %}
+                <div class="filme-info">
+                    <h3>{{ filme.titulo }}</h3>
+                    <p><strong>Diretor:</strong> {{ filme.diretor }}</p>
+                    <p><strong>Gênero:</strong> {{ filme.genero }}</p>
+                    <p><strong>Ano:</strong> {{ filme.ano }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+</body>
+</html>
